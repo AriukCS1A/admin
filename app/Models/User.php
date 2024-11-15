@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Baby;
+use App\Models\Points;
+use App\Models\Account;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -41,4 +44,31 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relationship with Baby model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    //baby
+
+    public function babies()
+    {
+        return $this->hasMany(\App\Models\Baby::class, 'user_id');
+    }
+    
+    //points
+
+    public function points()
+    {
+        return $this->hasMany(\App\Models\Points::class);
+    }
+
+    public function account()
+    {
+        return $this->hasOne(\App\Models\Account::class);
+    }
+   
+
 }
