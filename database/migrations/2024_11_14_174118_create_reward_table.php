@@ -24,9 +24,17 @@ return new class extends Migration
                 $table->string('productPhoto');
             }
             if (!Schema::hasColumn('reward', 'requiredAge')) {
-                $table->date('requiredAge');
+                $table->integer('requiredAge');
             }
-            
+            if (!Schema::hasColumn('reward', 'maxAge')) {
+                $table->integer('requiredMonth');
+            }
+            if (!Schema::hasColumn('reward', 'validFrom')) {
+                $table->date('validFrom');
+            }
+            if (!Schema::hasColumn('reward', 'validTo')) {
+                $table->date('validTo');
+            }
         });
     }
 
@@ -49,6 +57,15 @@ return new class extends Migration
             }
             if (Schema::hasColumn('reward', 'requiredAge')) {
                 $table->dropColumn('requiredAge');
+            }
+            if (Schema::hasColumn('reward', 'requiredMonth')) {
+                $table->dropColumn('requiredMonth');
+            }
+            if (Schema::hasColumn('reward', 'validFrom')) {
+                $table->dropColumn('validFrom');
+            }
+            if (Schema::hasColumn('reward', 'validTo')) {
+                $table->dropColumn('validTo');
             }
         });
     }

@@ -3,36 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Baby;
 use App\Models\User;
-
+use App\Models\Baby;
 
 class BabyController extends Controller
 {
-    public function uploadBabyInfo(Request $request)
+    // Pivot хүснэгтийн мэдээллийг авах
+    public function getBabyData()
     {
-        $request->validate([
-            'babyName' => 'required|string|max:255',
-            'register' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
-            'bDay' => 'required|date',
-            'user_id' => 'required|exists:users,id' 
-        ]);
-
-        $baby = new Baby(); 
-        $baby->babyName = $request->babyName;
-        $baby->register = $request->register;
-        $baby->gender = $request->gender;
-        $baby->bDay = $request->bDay;
-        $task->user_id = $request->user_id;
-        $baby->save(); 
+        $babies = Baby::with(['user', 'baby'])->get(); // Baby болон Reward загваруудыг холбож авна
+        return response()->json($babies);
     }
 
-    public function getBabies()
-{
-    // `user` харилцааг `with` функцээр ачаална
-    $babies = Baby::with('users')->get();
+    // Pivot хүснэгтийн мэдээллийг засах
+    public function updateGiftData(Request $request)
+    {
+        $request->validate([
+            'baby_id' => 'required|exists:baby,babyId',
+            'babyName' => 'required|exists:baby, babyName',
+            'gender' => 'required|exists:baby, gender',
+            'register' => 'required|exists:baby, register',
+            'bDay' => 'required|date',
+        ]);
 
-    return response()->json($babies);
-}
+        $baby = Baby::findOrFail($request->baby_id);
+        $baby->babyName = $request->babyName;
+        $baby->gender = $request->gender;
+        $baby->register = $request->register;
+        $baby->bDay = $request->bDay;
+        $baby->save();
+
+        return response()->json(['message' => 'Baby data updated successfully']);
+    }
+
+
 }
