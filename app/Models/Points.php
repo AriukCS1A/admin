@@ -4,34 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Points extends Model
 {
     use HasFactory;
 
     protected $table = 'points';
+    protected $primaryKey = 'pointId';
 
     protected $fillable = [
+        'user_id',
         'added',
         'substracted',
         'transDate',
-        'user_id', // user_id талбарыг энд оруулж байгаа эсэхээ шалгана уу.
+        'createdTime',
+        'updatedTime',
     ];
-
-    
-    const CREATED_AT = 'createdTime';
-    const UPDATED_AT = 'updatedTime';
+    public $timestamps = false;
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function account()
-    {
-        return $this->belongsTo(\App\Models\Account::class, 'user_id', 'user_id');
-    }
-
 
 }

@@ -12,12 +12,12 @@ class RewardController extends Controller
     {
         $request->validate([
             'productPhoto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => required|string|max:255',
-            'info' => required|string|max:255',
-            'requiredAge' => required|integer|max:255,
-            'requiredMonth' => required|integer|max:255,
-            'validFrom' => required|date,
-            'validTo' => required|date
+            'name' => 'required|string|max:255',
+            'info' => 'required|string|max:255',
+            'requiredAge' => 'required|integer|max:255',
+            'requiredMonth' => 'required|integer|max:255',
+            'validFrom' => 'required|date',
+            'validTo' => 'required|date'
 
         ]);
 

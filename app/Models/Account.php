@@ -4,33 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Points;
 
 class Account extends Model
 {
     use HasFactory;
 
-    protected $table = 'account';
-
+    protected $table = 'account'; // Хүснэгтийн нэр
+    protected $primaryKey = 'accId';
     protected $fillable = [
+        'user_id',
         'accountNum',
         'totalAdd',
         'totalSub',
         'balance',
-        'user_id', // user_id талбарыг энд оруулж байгаа эсэхээ шалгана уу.
+        'createTime',
+        'updateTime',
     ];
+    public $timestamps = false;
 
-    const CREATED_AT = 'createTime';
-    const UPDATED_AT = 'updateTime';
-
-    // User загвартай харилцаа (relationship) тодорхойлох
+    // `users` хүснэгттэй холбох гадаад түлхүүрийн харьцаа
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
-    }
-    public function points()
-    {
-        return $this->hasMany(\App\Models\Points::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

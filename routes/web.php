@@ -11,6 +11,7 @@ use App\Http\Controllers\RewardController;
 use App\Http\Controllers\PointsController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\GiftController;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,20 +41,15 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('/admin/upload-banner-image', [BannerController::class, 'uploadBannerImage'])->name('upload.banner.image');
 
+// Banner устгах (шинэ маршрут нэмсэн)
+Route::delete('/admin/delete-banner/{id}', [BannerController::class, 'deleteBanner'])->name('delete.banner');
+
 Route::post('/admin/upload-product-image', [ProductsController::class, 'uploadProductsImage'])->name('upload.product.image');
 
 Route::post('/admin/upload-task-image', [TaskController::class, 'uploadTaskImage'])->name('upload.task.image');
 Route::post('/admin/upload-filter-info', [FilterrController::class, 'uploadFilterInfo'])->name('upload.filter.info');
 Route::post('/admin/upload-reward-image', [RewardController::class, 'uploadRewardImage'])->name('upload.reward.image');
 
-Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
-Route::get('/accounts/{userId}', [AccountController::class, 'show'])->name('accounts.show');
-
-Route::get('/points', [PointsController::class, 'index'])->name('points.index');
-Route::get('/points/{id}', [PointsController::class, 'show'])->name('points.show');
-
-Route::get('/user/{userId}/points', [PointsController::class, 'userPoints'])->name('user.points');
-Route::get('/user/{userId}/account', [AccountController::class, 'userAccount'])->name('user.account');
 
 Route::get('/gift', [GiftController::class, 'getGiftData']);
 Route::post('/gift/update', [GiftController::class, 'updateGiftData']);
@@ -61,9 +57,6 @@ Route::post('/gift/update', [GiftController::class, 'updateGiftData']);
 Route::get('/baby', [BabyController::class, 'getBabyData']);
 Route::post('/baby/update', [BabyController::class, 'updateBabyData']);
 
-
-
-
-
-
+Route::resource('account', AccountController::class);
+Route::resource('points', PointsController::class);
 

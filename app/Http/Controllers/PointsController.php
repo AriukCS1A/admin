@@ -2,24 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Points;
-use App\Models\User;
+use Illuminate\Http\Request;
 
-class PointsController extends VoyagerBaseController
+class PointsController extends Controller
 {
-    // Онооны жагсаалт харуулах
-    public function index(Request $request)
+    public function index()
     {
-        // Бүх онооны мэдээллийг хэрэглэгчийн нэртэй хамт авах
-        $points = Points::with('user')->paginate(10); // 10 мөр хуудаслах
-        return view('vendor.voyager.points.browse', compact('points'));
+        $points = Points::with('user', 'account')->get(); // Холбогдсон хэрэглэгчийн мэдээлэлтэй цуг авах
+        return view('points.index', compact('points'));
     }
 
-    // Тухайн онооны дэлгэрэнгүйг харуулах
-    public function show(Request $request, $id)
+    public function create()
     {
-        $point = Points::with('user')->findOrFail($id);
-        return view('vendor.voyager.points.read', compact('point'));
+        return view('points.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'added' => 'required|integer',
+            'substracted' => 'required|integer',
+            'transDate' => 'required|date',
+        ]);
+
+        Account::create($validatedData);
+
+        return redirect()->route('points.index')->with('success', 'Оноо амжилттай');
+    }
+
+    public function edit($id)
+    {
+        $points = Points::findOrFail($id);
+        return view('points.edit', compact('points'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'added' => 'required|integer',
+            'substracted' => 'required|integer',
+            'transDate' => 'required|date',
+        ]);
+
+        $points = Points::findOrFail($id);
+        $points->update($validatedData);
+
+        return redirect()->route('points.index')->with('success', 'Оноо амжилттай шинэчлэгдэв.');
+    }
+
+    public function destroy($id)
+    {
+        $points = Points::findOrFail($id);
+        $points->delete();
+
+        return redirect()->route('points.index')->with('success', 'Данс устгагдлаа.');
     }
 }

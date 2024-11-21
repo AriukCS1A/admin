@@ -3,29 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Models\Points;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    // Хэрэглэгчийн дансны мэдээллийг харуулах функц
-    public function show($userId)
-    {
-        // Дансны мэдээлэл авах
-        $account = Account::where('user_id', $userId)->first();
-
-        // Онооны түүхийг авах
-        $points = Points::where('user_id', $userId)->get();
-
-        return view('admin.account_details', compact('account', 'points'));
-    }
-
-    // Бүх дансны мэдээллийг харуулах функц
     public function index()
     {
-        // Бүх дансны жагсаалт
-        $accounts = Account::with('user')->paginate(10);
+        $accounts = Account::with('user')->get(); // Холбогдсон хэрэглэгчийн мэдээлэлтэй цуг авах
+        return view('account.index', compact('accounts'));
+    }
 
-        return view('admin.accounts', compact('accounts'));
+    public function create()
+    {
+        return view('account.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'totalAdd' => 'required|integer',
+            'totalSub' => 'required|integer',
+            'balance' => 'required|integer',
+        ]);
+
+        Account::create($validatedData);
+
+        return redirect()->route('account.index')->with('success', 'Данс амжилттай үүсэв.');
+    }
+
+    public function edit($id)
+    {
+        $account = Account::findOrFail($id);
+        return view('account.edit', compact('account'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'totalAdd' => 'required|integer',
+            'totalSub' => 'required|integer',
+            'balance' => 'required|integer',
+        ]);
+
+        $account = Account::findOrFail($id);
+        $account->update($validatedData);
+
+        return redirect()->route('account.index')->with('success', 'Данс амжилттай шинэчлэгдэв.');
+    }
+
+    public function destroy($id)
+    {
+        $account = Account::findOrFail($id);
+        $account->delete();
+
+        return redirect()->route('account.index')->with('success', 'Данс устгагдлаа.');
     }
 }
