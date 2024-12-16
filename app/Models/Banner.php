@@ -15,6 +15,7 @@ class Banner extends Model
     protected $fillable = [
         'branch_id',
         'photo',
+        'link',
         'description',
         'startDate',
         'endDate',
