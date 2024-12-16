@@ -60,3 +60,7 @@ Route::post('/baby/update', [BabyController::class, 'updateBabyData']);
 Route::resource('account', AccountController::class);
 Route::resource('points', PointsController::class);
 
+Route::resource('brand', BrandController::class);
+Route::resource('branches', BranchesController::class);
+
+Route::resource('invite', InviteController::class);

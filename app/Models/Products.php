@@ -11,10 +11,18 @@ class Products extends Model
 
     protected $table = 'products'; // Хүснэгтийн нэрийг зөв эсэхийг шалгаарай
     protected $fillable = [
+    'brand_id',
     'name', 
     'barCode',
-    'pic'
+    'pic',
+    'description',
+    'price'
     ];
 
     public $timestamps = false;
+
+    public function brand()
+    {
+        return $this->belongsTo(\App\Models\Brand::class);
+    }
 }

@@ -18,7 +18,9 @@ class BannerController extends Controller
     public function uploadBannerImage(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'branch_id' => 'required|exists:branch,id',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string',
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
         ]);
@@ -28,7 +30,6 @@ class BannerController extends Controller
 
         Banner::create([
             'photo' => $upload['url'],
-            'public_id' => $upload['public_id'],
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
         ]);

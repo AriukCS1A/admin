@@ -13,11 +13,17 @@ class Banner extends Model
 
     // Бөглөх боломжтой баганууд
     protected $fillable = [
+        'branch_id',
         'photo',
-        'public_id',
+        'description',
         'startDate',
         'endDate',
     ];
 
     public $timestamps = false; // created_at, updated_at баганыг ашиглахгүй бол false
+
+    public function branch()
+    {
+        return $this->belongsTo(\App\Models\Branches::class);
+    }
 }
