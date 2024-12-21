@@ -64,3 +64,4 @@ Route::resource('brand', BrandController::class);
 Route::resource('branches', BranchesController::class);
 
 Route::resource('invite', InviteController::class);
+Route::resource('level', LevelController::class);

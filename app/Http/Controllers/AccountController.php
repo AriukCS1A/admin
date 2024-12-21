@@ -22,6 +22,7 @@ class AccountController extends Controller
     {
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
+            'level_id' => 'required|exists:level,id',
             'totalAdd' => 'required|integer',
             'totalSub' => 'required|integer',
             'balance' => 'required|integer',

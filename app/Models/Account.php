@@ -13,6 +13,7 @@ class Account extends Model
     protected $primaryKey = 'accId';
     protected $fillable = [
         'user_id',
+        'level_id',
         'accountNum',
         'totalAdd',
         'totalSub',
@@ -26,5 +27,10 @@ class Account extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(\App\Models\Level::class);
     }
 }
