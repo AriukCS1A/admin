@@ -65,3 +65,5 @@ Route::resource('branches', BranchesController::class);
 
 Route::resource('invite', InviteController::class);
 Route::resource('level', LevelController::class);
+Route::resource('review', ReviewController::class);
+Route::resource('progress', ProgressController::class);
