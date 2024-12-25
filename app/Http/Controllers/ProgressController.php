@@ -16,7 +16,7 @@ class ProgressController extends Controller
     {
         $validatedData = $request->validate([
             'userId' => 'required|exists:users,id',
-            'taskId' => 'required|exists:task,Id',
+            'taskId' => 'required|exists:task,id',
             'currentProgress' => 'required|integer',
             'reward_available' => 'required|boolean',
             'reward_claimed' => 'required|boolean'
