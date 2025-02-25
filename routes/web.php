@@ -71,3 +71,4 @@ Route::resource('invite', InviteController::class);
 Route::resource('level', LevelController::class);
 Route::resource('review', ReviewController::class);
 Route::resource('progress', ProgressController::class);
+Route::resource('coupons', CouponController::class);
