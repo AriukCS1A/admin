@@ -10,9 +10,8 @@ class AdviceController extends Controller
     public function uploadAdviceImage(Request $request)
     {
         $request->validate([
-            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $fileName = time() . '_' . $request->file('pic')->getClientOriginalName();
@@ -22,7 +21,6 @@ class AdviceController extends Controller
         $advice = new Advice();
         $advice->pic = url('storage/advice/' . $fileName);
         $advice->name = $request->name;
-        $advice->description = $request->description;
         $advice->save();
 
         return redirect()->back()->with('success', 'Зургийг амжилттай орууллаа');

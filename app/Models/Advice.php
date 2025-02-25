@@ -14,8 +14,18 @@ class Advice extends Model
     protected $fillable = [
         'name',
         'pic',
-        'description'
     ];
 
     public $timestamps = false;
+
+    public function momchange()
+    {
+        return $this->belongsTo(\App\Models\Momchange::class);
+    }
+
+    public function babydev()
+    {
+        return $this->belongsTo(\App\Models\Babydev::class);
+    }
+
 }

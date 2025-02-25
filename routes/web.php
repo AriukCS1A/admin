@@ -49,6 +49,10 @@ Route::post('/admin/upload-product-image', [ProductsController::class, 'uploadPr
 Route::post('/admin/upload-task-image', [TaskController::class, 'uploadTaskImage'])->name('upload.task.image');
 Route::post('/admin/upload-filter-info', [FilterrController::class, 'uploadFilterInfo'])->name('upload.filter.info');
 Route::post('/admin/upload-reward-image', [RewardController::class, 'uploadRewardImage'])->name('upload.reward.image');
+Route::post('/admin/upload-advice-image', [AdviceController::class, 'uploadAdviceImage'])->name('upload.advice.image');
+Route::post('/admin/upload-momchange-image', [MomchangeController::class, 'uploadMomchangeImage'])->name('upload.momchange.image');
+Route::post('/admin/upload-babydev-image', [BabydevController::class, 'uploadBabydevImage'])->name('upload.babydev.image');
+Route::post('/admin/upload-detail-image', [DetailController::class, 'uploadDetailImage'])->name('upload.detail.image');
 
 
 Route::get('/gift', [GiftController::class, 'getGiftData']);
