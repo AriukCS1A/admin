@@ -32,11 +32,11 @@
                             <tr>
                                 <td>{{ $data->id }}</td>
                                 <td>
-                                    @php $ext = pathinfo($data->pic, PATHINFO_EXTENSION); @endphp
+                                    @php $ext = pathinfo($data->photo, PATHINFO_EXTENSION); @endphp
                                     @if (in_array($ext, ['mp4', 'mov', 'webm']))
-                                        <video src="{{ $data->pic }}" controls style="max-width: 100px;"></video>
-                                    @elseif($data->pic)
-                                        <img src="{{ $data->pic }}" style="max-width: 100px;">
+                                        <video src="{{ $data->photo }}" controls style="max-width: 100px;"></video>
+                                    @elseif($data->photo)
+                                        <img src="{{ $data->photo }}" style="max-width: 100px;">
                                     @else
                                         No Media
                                     @endif
