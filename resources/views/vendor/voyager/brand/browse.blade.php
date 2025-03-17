@@ -6,11 +6,9 @@
         <div class="col-md-12">
 
             <div class="panel panel-bordered">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Task List</h3>
-                    <div class="panel-actions">
-                        <a href="{{ route('voyager.task.create') }}" class="btn btn-success">➕ Add New</a>
-                    </div>
+                <div class="panel-heading d-flex justify-content-between align-items-center">
+                    <h3 class="panel-title">Brand List</h3>
+                    <a href="{{ route('voyager.brand.create') }}" class="btn btn-success">➕ Add New</a>
                 </div>
 
                 <div class="panel-body">
@@ -20,13 +18,7 @@
                                 <th>#</th>
                                 <th>Media</th>
                                 <th>Name</th>
-                                <th>Info</th>
-                                <th>Task Start</th>
-                                <th>Task End</th>
-                                <th>Progress</th>
-                                <th>Filter</th>
-                                <th>Products</th>
-                                <th>Barcode</th>
+                                <th>Description</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -45,16 +37,10 @@
                                     @endif
                                 </td>
                                 <td>{{ $data->name }}</td>
-                                <td>{{ $data->info }}</td>
-                                <td>{{ $data->taskStart }}</td>
-                                <td>{{ $data->taskEnd }}</td>
-                                <td>{{ $data->progress }}</td>
-                                <td>{{ $data->filter_id }}</td>
-                                <td>{{ $data->product_id }}</td>
-                                <td>{{ $data->barCode }}</td>
+                                <td>{{ $data->description }}</td>
                                 <td>
-                                    <a href="{{ route('voyager.task.edit', $data->id) }}" class="btn btn-sm btn-primary">✏️</a>
-                                    <form action="{{ route('voyager.task.destroy', $data->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('voyager.brand.edit', $data->id) }}" class="btn btn-sm btn-primary">✏️</a>
+                                    <form action="{{ route('voyager.brand.destroy', $data->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-danger">🗑</button>
@@ -103,52 +89,4 @@
         </div>
     </div>
 </div>
-{{-- Cloudinary Upload Script --}}
-<script>
-    const UPLOAD_PRESET = "{{ env('CLOUDINARY_UPLOAD_PRESET', 'voyager') }}";
-    document.getElementById('cloudinary-upload').addEventListener('change', async function (e) {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET); // Cloudinary upload preset
-        formData.append('folder', 'voyager_uploadss');
-
-        const isVideo = file.type.startsWith('video/');
-        const resourceType = isVideo ? 'video' : 'image';
-
-         try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/dzwchq5e5/${resourceType}/upload`, {
-            method: 'POST',
-            body: formData
-        });
-
-        const data = await res.json();
-
-        if (data.secure_url) {
-            document.getElementById('cloudinary-url').value = data.secure_url;
-
-            // Preview (зурган эсвэл бичлэг)
-            const preview = document.getElementById('cloud-preview');
-            if (isVideo) {
-                preview.outerHTML = `<video src="${data.secure_url}" controls style="max-width:300px; margin-top:10px;"></video>`;
-            } else {
-                preview.src = data.secure_url;
-                preview.style.display = 'block';
-            }
-
-            alert('✅ Файл амжилттай Cloudinary-д хадгалагдлаа!');
-        } else {
-            alert('❌ Upload амжилтгүй боллоо!');
-            console.log(data);
-        }
-    } catch (err) {
-        alert('⚠️ Cloudinary upload алдаа гарлаа');
-        console.error(err);
-    }
-    });
-</script>
-
-
 @endsection

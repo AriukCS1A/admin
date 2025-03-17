@@ -53,9 +53,38 @@
                         </tbody>
                     </table>
 
-                    <div class="text-center">
-                        {{ method_exists($dataTypeContent, 'links') ? $dataTypeContent->links() : '' }}
-                    </div>
+                    @if (method_exists($dataTypeContent, 'links'))
+                        <div class="d-flex justify-content-center">
+                            <nav>
+                                <ul class="pagination">
+                                    {{-- Previous --}}
+                                    @if ($dataTypeContent->onFirstPage())
+                                        <li class="page-item disabled"><span class="page-link">« Previous</span></li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $dataTypeContent->previousPageUrl() }}" rel="prev">« Previous</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Page Numbers --}}
+                                    @foreach ($dataTypeContent->getUrlRange(1, $dataTypeContent->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $page == $dataTypeContent->currentPage() ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+
+                                    {{-- Next --}}
+                                    @if ($dataTypeContent->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $dataTypeContent->nextPageUrl() }}" rel="next">Next »</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled"><span class="page-link">Next »</span></li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        </div>
+                    @endif
                 </div>
             </div>
 

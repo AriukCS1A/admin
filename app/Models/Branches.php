@@ -15,7 +15,10 @@ class Branches extends Model
         'name',
         'latitude',
         'longitude',
-        'address'
+        'address',
+        'pic',
+        'phone',
+        'hour'
     ];
     public $timestamps = false;
 
