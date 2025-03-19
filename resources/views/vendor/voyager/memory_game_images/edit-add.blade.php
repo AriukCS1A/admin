@@ -4,7 +4,7 @@
 <div class="page-content container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form action="@if(isset($dataTypeContent->id)){{ route('voyager.advice.update', $dataTypeContent->id) }}@else{{ route('voyager.advice.store') }}@endif" method="POST" enctype="multipart/form-data">
+            <form action="@if(isset($dataTypeContent->id)){{ route('voyager.memory_game_images.update', $dataTypeContent->id) }}@else{{ route('voyager.memory_game_images.store') }}@endif" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if(isset($dataTypeContent->id))
                     @method('PUT')
@@ -15,53 +15,26 @@
 
                         {{-- Cloudinary Upload --}}
                         <div class="form-group">
-                            <label for="cloudinary-upload">📷 Upload Advice Image</label>
+                            <label for="cloudinary-upload">📷 Upload Memory Game Image </label>
                             <input type="file" id="cloudinary-upload" class="form-control" accept="image/*,video/*">
-                            <input type="hidden" name="pic" id="cloudinary-url" value="{{ $dataTypeContent->pic ?? '' }}">
+                            <input type="hidden" name="image_url" id="cloudinary-url" value="{{ $dataTypeContent->image_url ?? '' }}">
 
                             <div id="cloud-preview" style="margin-top: 10px;">
-                                @if (!empty($dataTypeContent->pic))
-                                    @php $ext = pathinfo($dataTypeContent->pic, PATHINFO_EXTENSION); @endphp
+                                @if (!empty($dataTypeContent->image_url))
+                                    @php $ext = pathinfo($dataTypeContent->image_url, PATHINFO_EXTENSION); @endphp
                                     @if(in_array($ext, ['mp4', 'mov', 'webm']))
-                                        <video src="{{ $dataTypeContent->pic }}" controls style="max-width: 300px;"></video>
+                                        <video src="{{ $dataTypeContent->image_url }}" controls style="max-width: 300px;"></video>
                                     @else
-                                        <img src="{{ $dataTypeContent->pic }}" style="max-width: 200px;">
+                                        <img src="{{ $dataTypeContent->image_url }}" style="max-width: 200px;">
                                     @endif
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="name">📄 name</label>
-                            <input type="text" name="name" class="form-control" value="{{ $dataTypeContent->name ?? '' }}">
+                            <label for="name">📄 Product Name</label>
+                            <input type="text" name="product_name" class="form-control" value="{{ $dataTypeContent->product_name ?? '' }}">
                         </div>
-
-                        <div class="form-group">
-    <label for="momchange_id">Momchange</label>
-    <select name="momchange_id" class="form-control">
-        <option value="">-- None --</option>
-        @foreach(App\Models\Momchange::all() as $momchange)
-            <option value="{{ $momchange->id }}"
-                {{ (isset($dataTypeContent->momchange_id) && $dataTypeContent->momchange_id == $momchange->id) ? 'selected' : '' }}>
-                {{ $momchange->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="babydev_id">Babydev</label>
-    <select name="babydev_id" class="form-control">
-        <option value="">-- None --</option>
-        @foreach(App\Models\Babydev::all() as $babydev)
-            <option value="{{ $babydev->id }}"
-                {{ (isset($dataTypeContent->babydev_id) && $dataTypeContent->babydev_id == $babydev->id) ? 'selected' : '' }}>
-                {{ $babydev->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
 
                     </div>
                     <div class="panel-footer">
