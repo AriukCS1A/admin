@@ -50,6 +50,11 @@
                             <label for="requiredAge">📅 Required Age</label>
                             <input type="number" name="requiredAge" class="form-control" value="{{ $dataTypeContent->requiredAge ?? '' }}">
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="benefit">📄 Benefit</label>
+                            <textarea name="benefit" class="form-control">{{ $dataTypeContent->benefit ?? '' }}</textarea>
+                        </div>
 
                         <div class="form-group">
                             <label for="validFrom">🕒 Valid From</label>

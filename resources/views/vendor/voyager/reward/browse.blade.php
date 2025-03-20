@@ -23,6 +23,7 @@
                                 <th>Info</th>
                                 <th>Required Month</th>
                                 <th>Required Age</th>
+                                <th>Benefit</th>
                                 <th>Valid From</th>
                                 <th>Valid To</th>
                                 <th>Actions</th>
@@ -46,6 +47,7 @@
                                 <td>{{ $data->info }}</td>
                                 <td>{{ $data->requiredMonth }}</td>
                                 <td>{{ $data->requiredAge }}</td>
+                                <td>{{ $data->benefit }}</td>
                                 <td>{{ $data->validFrom }}</td>
                                 <td>{{ $data->validTo }}</td>
                                 <td>

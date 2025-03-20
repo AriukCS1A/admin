@@ -22,6 +22,7 @@ class Reward extends Model
         'info',
         'requiredAge',
         'requiredMonth',
+        'benefit',
         'validFrom',
         'validTo'
     ];
