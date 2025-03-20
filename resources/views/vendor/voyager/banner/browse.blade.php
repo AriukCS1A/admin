@@ -25,6 +25,7 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Branch</th>
+                                    <th>Story or Banner</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -47,6 +48,7 @@
                                     <td>{{ $data->startDate }}</td>
                                     <td>{{ $data->endDate }}</td>
                                     <td>{{ $data->branch_id }}</td>
+                                    <td>{{ $data->storyfilter_id }}</td>
                                     <td>
                                         <a href="{{ route('voyager.banner.edit', $data->id) }}" class="btn btn-sm btn-primary">✏️</a>
                                         <form action="{{ route('voyager.banner.destroy', $data->id) }}" method="POST" style="display:inline;">

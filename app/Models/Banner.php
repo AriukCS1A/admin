@@ -14,6 +14,7 @@ class Banner extends Model
     // Бөглөх боломжтой баганууд
     protected $fillable = [
         'branch_id',
+        'storyfilter_id',
         'photo',
         'link',
         'description',
@@ -26,5 +27,10 @@ class Banner extends Model
     public function branch()
     {
         return $this->belongsTo(\App\Models\Branches::class);
+    }
+
+    public function storyfilter()
+    {
+        return $this->belongsTo(\App\Models\Storyfilter::class);
     }
 }

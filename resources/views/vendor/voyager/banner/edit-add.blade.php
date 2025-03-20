@@ -58,11 +58,23 @@
                         {{-- Branch --}}
                         <div class="form-group">
                             <label for="branch_id">📍 Branch</label>
-                            <select name="branch_id" class="form-control" required>
+                            <select name="branch_id" class="form-control">
                                 <option value="">-- Select Branch --</option>
                                 @foreach(App\Models\Branches::all() as $branch)
                                     <option value="{{ $branch->id }}" {{ (isset($dataTypeContent->branch_id) && $dataTypeContent->branch_id == $branch->id) ? 'selected' : '' }}>
                                         {{ $branch->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storyfilter_id">📍 Story or Banner</label>
+                            <select name="storyfilter_id" class="form-control" required>
+                                <option value="">-- Select Option --</option>
+                                @foreach(App\Models\Storyfilter::all() as $story)
+                                    <option value="{{ $story->id }}" {{ (isset($dataTypeContent->storyfilter_id) && $dataTypeContent->storyfilter_id == $story->id) ? 'selected' : '' }}>
+                                        {{ $story->name }}
                                     </option>
                                 @endforeach
                             </select>
