@@ -15,7 +15,7 @@ class Level extends Model
         'name',
         'minPoint',
         'maxPoint',
-        'levelReward'
+        'levelReward',
     ];
     public $timestamps = false;
 
