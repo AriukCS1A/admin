@@ -4,7 +4,7 @@
 <div class="page-content container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form action="@if(isset($dataTypeContent->id)){{ route('voyager.task.update', $dataTypeContent->id) }}@else{{ route('voyager.task.store') }}@endif" method="POST" enctype="multipart/form-data">
+            <form action="@if(isset($dataTypeContent->id)){{ route('voyager.task.update', $dataTypeContent->id) }}@else{{ route('upload.task.image') }}@endif" method="POST" enctype="multipart/form-data">                
                 @csrf
                 @if(isset($dataTypeContent->id))
                     @method('PUT')
