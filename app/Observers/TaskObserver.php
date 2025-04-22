@@ -9,9 +9,11 @@ class TaskObserver
 {
     public function created(Task $task)
     {
+        $taskName = $task->name;
+        $message = "{$taskName} худалдан авч даалгавраа биелүүлээрэй";
         (new FirebaseService())->sendToTopic(
             '🆕 Шинэ үүрэг нэмэгдлээ!',
-            $task->name,
+            $message,
             'all_users',
             [
                 'type' => 'task',
